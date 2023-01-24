@@ -8,7 +8,7 @@ double vérifierValeur(std::string texte, double min, double max) {
     double valeur;
     std::cout << texte << std::endl;
     std::cin >> valeur;
-    while (valeur < min or valeur > max) {
+    while (valeur < min || valeur > max) {
         std::cout << texte << std::endl;
         std::cin >> valeur;
     }
