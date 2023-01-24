@@ -8,7 +8,7 @@ double vérifierValeur(std::string texte, double min, double max) {
     double valeur;
     std::cout << texte << std::endl;
     std::cin >> valeur;
-    while (valeur < min or valeur > max) {
+    while (valeur < min || valeur > max) {
         std::cout << texte << std::endl;
         std::cin >> valeur;
     }
@@ -24,7 +24,7 @@ int main() {
     nRebond = vérifierValeur("Entrer le nombre de rebond après lequelle vouz-voulez la hauteur: ", 0, INFINITY);
     coefficientRebond = vérifierValeur("Entrer le coefficient de rebond",0,1);
     float vitesseInitiale, vitesseFinale, hauteurFinale;
-    for (int i = 0; i < nRebond; i--) {
+    for (int i = 0; i < nRebond; i++) {
         vitesseInitiale = std::pow((2*G*hauteurInitiale), 0.5);
         vitesseFinale = coefficientRebond * vitesseInitiale;
         hauteurFinale = (float) (std::pow(vitesseFinale,2)) / (2 * G);
