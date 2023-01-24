@@ -9,6 +9,17 @@ using std::endl;
 //mois n-1
 // moisn = moins n-1 - paiement + moisn-1 * taux/12
 
+double vérifierValeur(std::string texte, double min, double max) {
+    double valeur;
+    std::cout << texte << std::endl;
+    std::cin >> valeur;
+    while (valeur < min or valeur > max) {
+        std::cout << texte << std::endl;
+        std::cin >> valeur;
+    }
+    return valeur;
+}
+
 void emprunt(){  
 
     double sommePret, paiementMois, tauxAnnuel;
