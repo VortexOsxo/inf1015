@@ -6,23 +6,21 @@ using std::string;
 using std::cout; using std::cin;
 using std::endl;
 
-//mois n-1
-// moisn = moins n-1 - paiement + moisn-1 * taux/12
 
-double verifierValeur(std::string texte, double min, double max) {
+double verifieValeur(string texte, double min, double max) {
     double valeur = max + 1;
     while ((valeur < min) || (valeur > max)) {
-        std::cout << texte << std::endl;
-        std::cin >> valeur;
+        cout << texte << endl;
+        cin >> valeur;
     }
     return valeur;
 }
 
 void emprunt(){  
 
-    double sommePret = verifierValeur("La somme d'argent prétée : ", 0, INFINITY);
-    double paiementMois = verifierValeur("Le montant remboursé chaque mois : ", 0, INFINITY);
-    double tauxAnnuel = verifierValeur("Taux d'interets annuels = ", 0, INFINITY);
+    double sommePret = verifieValeur("La somme d'argent prétée : ", 0, INFINITY);
+    double paiementMois = verifieValeur("Le montant remboursé chaque mois : ", 0, INFINITY);
+    double tauxAnnuel = verifieValeur("Taux d'interets annuels = ", 0, INFINITY);
 
     int nombreMois; double sommeInterets, sommeRestante = sommePret, interetsMois, tauxMensuel;
 
