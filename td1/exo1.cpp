@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 
-int main () {
+int premier () {
     std::cout << "Entrer un nombre entier : " << std::endl;
     int nombre;
     std::cin >> nombre;
