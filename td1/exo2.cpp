@@ -23,14 +23,18 @@ void emprunt(){
     cin >> tauxAnnuel;
    
     int nombreMois = 0;
-    double sommeInterets, sommeRestante, interetsMois, tauxMensuel;
+    double sommeInterets, sommeRestante = sommePret, interetsMois, tauxMensuel;
 
 
-    while (sommePret >= 0){ 
+    while (sommePret >= 0) { 
+
+       
         tauxMensuel = sommePret * tauxAnnuel / 100 / 12;
         sommePret = sommePret - paiementMois + tauxMensuel;
         sommeInterets += tauxMensuel;
         nombreMois +=1;  
+        
+        
 
     }
         
