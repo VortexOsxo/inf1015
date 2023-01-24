@@ -16,7 +16,6 @@ int main () {
     for (int i = 0; i < 10; i ++) {
         std::cin >> nombres[i];
     }
-    //for (int nombre: nombres) { std::cout << nombre << "-";}
 
     int nombresOrdonnés[TAILLETABLEAU];
     int emplacementLibre = 0;
