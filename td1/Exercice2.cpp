@@ -33,13 +33,14 @@ int main(){
     double tauxAnnuel = verifierValeur("Taux interets annuels : ", 0, INFINITY);
    
     int nombreMois = 0;
-    double sommeInterets, interetsMois, tauxMensuel;
+    double sommeInterets = 0.0;
+    double tauxMensuel = sommePret * tauxAnnuel / 100 / 12;
 
     while (sommePret >= 0){ 
-        tauxMensuel = sommePret * tauxAnnuel / 100 / 12;
         sommePret = sommePret - paiementMois + tauxMensuel;
         sommeInterets += tauxMensuel;
-        nombreMois +=1;  
+        nombreMois +=1; 
+        tauxMensuel = sommePret * tauxAnnuel / 100 / 12; 
     }
         
     cout << "Nombre de mois nécessaires pour rembourser la dette : " << nombreMois << endl;
