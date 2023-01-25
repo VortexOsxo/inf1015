@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 const int NOMBREMOTS= 4;
 const std::string FICHIERDICTIONNAIRE = "dictionnaire.txt";
@@ -9,22 +10,6 @@ const std::string FICHIERDICTIONNAIRE = "dictionnaire.txt";
 struct Mot {
     std::string nom, natureGenre, définition;
 };
-
-Mot créerMotDepuisString(std::string ligne) {
-    char tabulation = '\t';
-    int index = 0, longueur = 0;
-    std::vector<std::string> composantes;
-    for (char charactère: ligne) {
-        if (charactère == tabulation) {
-            composantes.push_back(ligne.substr(index, longueur));
-            index += longueur + 1;
-            longueur = 0;
-        }
-        else { longueur += 1; }
-    }
-    composantes.push_back(ligne.substr(index));
-    return {composantes[0], composantes[1], composantes[2]};
-}
 
 int main() {
     std::fstream fichierSource;
@@ -34,7 +19,10 @@ int main() {
         std::string ligne;
         for (int i = 0; i < NOMBREMOTS; i ++) {
             getline(fichierSource, ligne);
-            dictionnaire[i] = créerMotDepuisString(ligne);
+            std::stringstream stringLigne(ligne);
+            getline(stringLigne, dictionnaire[i].nom, '\t');
+            getline(stringLigne, dictionnaire[i].natureGenre, '\t');
+            getline(stringLigne, dictionnaire[i].définition);
         }
     }
     fichierSource.close();
