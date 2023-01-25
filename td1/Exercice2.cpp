@@ -12,9 +12,7 @@ qu'il va payer et le nombre de mois nécessaire pour rembourser son prêt.
 #include <fstream>
 #include <iostream>
 #include <cmath>
-using std::string;
-using std::cout; using std::cin;
-using std::endl;
+using namespace std;
 
 double verifierValeur(std::string texte, double min, double max) {
     double valeur;

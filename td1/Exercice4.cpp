@@ -44,14 +44,14 @@ int main() {
         return 0;
     }
 
-    int dansCercle = 0;
+    int nPointsDansCercle = 0;
     for (int i = 0; i < nItération; i ++) {
         Point point = generateRandomPoint();
         if (estDansCercleR1(point)) {
-            dansCercle += 1;
+            nPointsDansCercle += 1;
         }
     }
-    float estimation = ((float) dansCercle / nItération) * 4;
+    float estimation = ((float) nPointsDansCercle / nItération) * 4;
     roundToSix(estimation);
     float écartRelatif = std::abs(estimation - PI);
     roundToSix(écartRelatif);
