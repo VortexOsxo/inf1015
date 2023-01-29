@@ -12,7 +12,6 @@ qu'il va payer et le nombre de mois nécessaire pour rembourser son prêt.
 #include <fstream>
 #include <iostream>
 #include <cmath>
-using namespace std;
 
 double verifierValeur(std::string texte, double min, double max) {
     double valeur;
@@ -41,6 +40,6 @@ int main(){
         tauxMensuel = sommePret * tauxAnnuel / 100 / 12; 
     }
         
-    cout << "Nombre de mois nécessaires pour rembourser la dette : " << nombreMois << endl;
-    cout << "Somme d'interets perçus par le preteur: " << sommeInterets << endl;
+    std::cout << "Nombre de mois nécessaires pour rembourser la dette : " << nombreMois << std::endl;
+    std::cout << "Somme d'interets perçus par le preteur: " << sommeInterets << std::endl;
 }

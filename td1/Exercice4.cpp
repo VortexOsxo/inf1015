@@ -6,7 +6,9 @@ Ce programme permet d'estimer la valeur de pi en utilisant la méthode de Monte-
 indique le nombre d'itération souhaiter et le programme retourne ensuite la valeur de pi estimé
  et la différence avec la valeur réelle précise jusqu'à 6 chiffres significatifs 
 */ 
+
 #include <iostream>
+#include <iomanip>
 #include <stdlib.h>
 #include <ctime>
 #include <math.h>
@@ -23,11 +25,6 @@ Point generateRandomPoint() {
     Point point = {x, y};
     return point;
 }
-
-void roundToSix(float &number) {
-    number = (floor(number * pow(10,6)))/pow(10,6);
-}
-
 
 bool estDansCercleR1(Point point) {
     float distance = (std::pow(point.x,2) + std::pow(point.y,2));
@@ -52,12 +49,10 @@ int main() {
         }
     }
     float estimation = ((float) nPointsDansCercle / nItération) * 4;
-    roundToSix(estimation);
     float écartRelatif = std::abs(estimation - PI);
-    roundToSix(écartRelatif);
 
-    std::cout << "La valeur estimée de pi est: " << estimation << std::endl;
-    std::cout << "La différence avec la valeur réelle est: " << écartRelatif << std::endl;
+    std::cout << "La valeur estimée de pi est: " << std::fixed << std::setprecision(6) << estimation << std::endl;
+    std::cout << "La différence avec la valeur réelle est: " << std::fixed << std::setprecision(6) << écartRelatif << std::endl;
 
     return 0;
 }
