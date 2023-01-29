@@ -2,7 +2,7 @@
 Exercice1.cpp
 Philippe Martin Skander Hellal
 
-Ce programme consiste à définir si un nombre est premier ou non. 
+Ce programme permet de définir si un nombre est premier ou non. 
 L'utilisateur entre un nombre entier positif et le programme 
 lui indique si le nombre est premier, sinon il indique le premier 
 diviseur qu'il trouve.
