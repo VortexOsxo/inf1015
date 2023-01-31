@@ -59,7 +59,7 @@ string lireString(istream& fichier)
 void ajouterFilm(ListeFilms& listeFilms, Film* ptrFilm) {
 	if (listeFilms.capacite == listeFilms.nElements) {
 		Film** nouvelleListe = new Film*[listeFilms.capacite * 2];\
-		for (int i = 0; i < listeFilms.nElements; i++) {
+		for (int i = 0; i <= listeFilms.nElements; i++) {
 			nouvelleListe[i] = listeFilms.elements[i];
 		}
 		delete[] listeFilms.elements;
@@ -78,7 +78,15 @@ void ajouterFilm(ListeFilms& listeFilms, Film* ptrFilm) {
 //la fonction prenant en paramètre un pointeur vers le film à enlever.  L'ordre des films dans la liste n'a pas à être conservé.
 
 void enleverFilm(ListeFilms& listeFilms, Film* ptrFilm) {
-
+	int ptrFilmIndex = -1;
+	for (int i = 0; i <= listeFilms.nElements; i++) {
+		if (listeFilms.elements[i] == ptrFilm) {
+			ptrFilmIndex = i;
+			break;
+		}
+	listeFilms.elements[ptrFilmIndex] = listeFilms.elements[listeFilms.nElements-1];
+	listeFilms.elements[listeFilms.nElements-1] = nullptr;
+	}
 }
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
