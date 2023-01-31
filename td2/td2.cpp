@@ -49,8 +49,32 @@ string lireString(istream& fichier)
 
 #pragma endregion//}
 
-//TODO: Une fonction pour ajouter un Film à une ListeFilms, le film existant déjà; on veut uniquement ajouter le pointeur vers le film existant.  Cette fonction doit doubler la taille du tableau alloué, avec au minimum un élément, dans le cas où la capacité est insuffisante pour ajouter l'élément.  Il faut alors allouer un nouveau tableau plus grand, copier ce qu'il y avait dans l'ancien, et éliminer l'ancien trop petit.  Cette fonction ne doit copier aucun Film ni Acteur, elle doit copier uniquement des pointeurs.
+//TODO: Une fonction pour ajouter un Film à une ListeFilms, le film existant déjà; on veut uniquement ajouter le pointeur vers le film existant.  
+//Cette fonction doit doubler la taille du tableau alloué, avec au minimum un élément, dans le cas où la capacité est insuffisante pour ajouter l'élément.  
+//Il faut alors allouer un nouveau tableau plus grand, copier ce qu'il y avait dans l'ancien, et éliminer l'ancien trop petit.  
+//Cette fonction ne doit copier aucun Film ni Acteur, elle doit copier uniquement des pointeurs.
 
+
+
+void ajouterFilm(ListeFilms& listeFilms, Film* ptrFilm)
+{
+	if (listeFilms.capacite == listeFilms.nElements) {
+		Film** nouvelleListe = new Film*[listeFilms.capacite * 2];\
+		for (int i = 0; i < listeFilms.nElements; i++) {
+			nouvelleListe[i] = listeFilms.elements[i];
+		}
+		delete[] listeFilms.elements;
+		listeFilms.elements = nouvelleListe;
+		listeFilms.capacite *= 2;
+	}  
+
+	else
+	{	
+		listeFilms.elements[listeFilms.nElements++] = ptrFilm;
+
+	}
+	
+}
 //TODO: Une fonction pour enlever un Film d'une ListeFilms (enlever le pointeur) sans effacer le film; la fonction prenant en paramètre un pointeur vers le film à enlever.  L'ordre des films dans la liste n'a pas à être conservé.
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
