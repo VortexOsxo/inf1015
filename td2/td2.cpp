@@ -57,20 +57,26 @@ string lireString(istream& fichier)
 
 
 void ajouterFilm(ListeFilms& listeFilms, Film* ptrFilm) {
-	if (listeFilms.capacite == listeFilms.nElements) {
-		Film** nouvelleListe = new Film*[listeFilms.capacite * 2];\
+	if (listeFilms.capacite == 0) {
+		listeFilms.capacite = 2; listeFilms.nElements = 1;
+		Film** nouvelleListe = new Film*[2];
+		nouvelleListe[0] == ptrFilm;
+		listeFilms.elements = nouvelleListe;
+	}
+	else if (listeFilms.capacite == listeFilms.nElements) {
+		Film** nouvelleListe = new Film*[listeFilms.capacite * 2];
 		for (int i = 0; i <= listeFilms.nElements; i++) {
 			nouvelleListe[i] = listeFilms.elements[i];
 		}
 		delete[] listeFilms.elements;
 		listeFilms.elements = nouvelleListe;
 		listeFilms.capacite *= 2;
+		listeFilms.elements[listeFilms.nElements++] = ptrFilm;
 	}  
 
 	else
 	{	
 		listeFilms.elements[listeFilms.nElements++] = ptrFilm;
-
 	}
 	
 }
@@ -78,14 +84,12 @@ void ajouterFilm(ListeFilms& listeFilms, Film* ptrFilm) {
 //la fonction prenant en paramètre un pointeur vers le film à enlever.  L'ordre des films dans la liste n'a pas à être conservé.
 
 void enleverFilm(ListeFilms& listeFilms, Film* ptrFilm) {
-	int ptrFilmIndex = -1;
 	for (int i = 0; i <= listeFilms.nElements; i++) {
 		if (listeFilms.elements[i] == ptrFilm) {
-			ptrFilmIndex = i;
-			break;
+			listeFilms.elements[i] = listeFilms.elements[listeFilms.nElements-1];
+			listeFilms.elements[listeFilms.nElements-1] = nullptr;
+			return;
 		}
-	listeFilms.elements[ptrFilmIndex] = listeFilms.elements[listeFilms.nElements-1];
-	listeFilms.elements[listeFilms.nElements-1] = nullptr;
 	}
 }
 
