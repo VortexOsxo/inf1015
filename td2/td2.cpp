@@ -127,8 +127,6 @@ Acteur* lireActeur(istream& fichier, ListeFilms& listeFilms)
 	else {
 		return acteurExistant;
 	}
-
-	return {}; //TODO: Retourner un pointeur soit vers un acteur existant ou un nouvel acteur ayant les bonnes informations, selon si l'acteur existait déjà.  Pour fins de débogage, affichez les noms des acteurs crées; vous ne devriez pas voir le même nom d'acteur affiché deux fois pour la création.
 }
 
 Film* lireFilm(istream& fichier, ListeFilms& listeFilms)
@@ -138,12 +136,19 @@ Film* lireFilm(istream& fichier, ListeFilms& listeFilms)
 	film.realisateur = lireString(fichier);
 	film.anneeSortie = lireUint16 (fichier);
 	film.recette     = lireUint16 (fichier);
-	film.acteurs.nElements = lireUint8 (fichier);  //NOTE: Vous avez le droit d'allouer d'un coup le tableau pour les acteurs, sans faire de réallocation comme pour ListeFilms.  Vous pouvez aussi copier-coller les fonctions d'allocation de ListeFilms ci-dessus dans des nouvelles fonctions et faire un remplacement de Film par Acteur, pour réutiliser cette réallocation.
+	film.acteurs.nElements = lireUint8 (fichier);  //NOTE: Vous avez le droit d'allouer d'un coup le tableau pour les acteurs, sans faire de réallocation comme pour ListeFilms.  
+	//Vous pouvez aussi copier-coller les fonctions d'allocation de ListeFilms ci-dessus dans des nouvelles fonctions et faire un remplacement de Film par Acteur, pour réutiliser cette réallocation.	
+	
+	film.acteurs.elements = new Acteur*[film.acteurs.nElements];
+	
 	for (int i = 0; i < film.acteurs.nElements; i++) {
-		lireActeur(fichier, listeFilms); //TODO: Placer l'acteur au bon endroit dans les acteurs du film.
+		Acteur* acteurLu = lireActeur(fichier, listeFilms); //TODO: Placer l'acteur au bon endroit dans les acteurs du film.
 		//TODO: Ajouter le film à la liste des films dans lesquels l'acteur joue.
+		film.acteurs.elements[i] = acteurLu;
+		ajouterFilm(acteurLu->joueDans, &film);
+		
 	}
-	return {}; //TODO: Retourner le pointeur vers le nouveau film.
+	return &film; //TODO: Retourner le pointeur vers le nouveau film
 }
 
 ListeFilms creerListe(string nomFichier)
