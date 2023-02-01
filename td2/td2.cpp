@@ -56,7 +56,7 @@ string lireString(istream& fichier)
 
 
 
-void ajouterFilm(ListeFilms& listeFilms, Film* ptrFilm) {
+void ajouterFilm(ListeFilms& listeFilms, Film* const ptrFilm) {
 	if (listeFilms.capacite == 0) {
 		listeFilms.capacite = 2; listeFilms.nElements = 1;
 		Film** nouvelleListe = new Film*[2];
@@ -83,7 +83,7 @@ void ajouterFilm(ListeFilms& listeFilms, Film* ptrFilm) {
 //TODO: Une fonction pour enlever un Film d'une ListeFilms (enlever le pointeur) sans effacer le film;
 //la fonction prenant en paramètre un pointeur vers le film à enlever.  L'ordre des films dans la liste n'a pas à être conservé.
 
-void enleverFilm(ListeFilms& listeFilms, Film* ptrFilm) {
+void enleverFilm(ListeFilms& listeFilms, Film* const ptrFilm) {
 	for (int i = 0; i <= listeFilms.nElements; i++) {
 		if (listeFilms.elements[i] == ptrFilm) {
 			listeFilms.elements[i] = listeFilms.elements[listeFilms.nElements-1];
@@ -94,7 +94,7 @@ void enleverFilm(ListeFilms& listeFilms, Film* ptrFilm) {
 }
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
-Acteur* trouverActeur(const ListeFilms& listeFilms, string acteurCible) {
+Acteur* trouverActeur(ListeFilms& const listeFilms, string acteurCible) {
 	span spanListeFilms{listeFilms.elements, listeFilms.nElements};
 	for (Film* film : spanListeFilms) {
 		span spanListeActeurs{film->acteurs.elements, film->acteurs.nElements};
@@ -109,7 +109,7 @@ Acteur* trouverActeur(const ListeFilms& listeFilms, string acteurCible) {
 
 
 //TODO: Compléter les fonctions pour lire le fichier et créer/allouer une ListeFilms.  La ListeFilms devra être passée entre les fonctions, pour vérifier l'existence d'un Acteur avant de l'allouer à nouveau (cherché par nom en utilisant la fonction ci-dessus).
-Acteur* lireActeur(istream& fichier, const ListeFilms& listeFilms)
+Acteur* lireActeur(istream& fichier, ListeFilms& const listeFilms)
 {
 	Acteur acteur = {};
 	acteur.nom            = lireString(fichier);
@@ -129,7 +129,7 @@ Acteur* lireActeur(istream& fichier, const ListeFilms& listeFilms)
 	}
 }
 
-Film* lireFilm(istream& fichier, const ListeFilms& listeFilms)
+Film* lireFilm(istream& fichier, ListeFilms& const listeFilms)
 {
 	Film film = {};
 	film.titre       = lireString(fichier);
