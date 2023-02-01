@@ -94,7 +94,7 @@ void enleverFilm(ListeFilms& listeFilms, Film* ptrFilm) {
 }
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
-Acteur* trouverActeur(ListeFilms& listeFilms, string acteurCible) {
+Acteur* trouverActeur(const ListeFilms& listeFilms, string acteurCible) {
 	span spanListeFilms{listeFilms.elements, listeFilms.nElements};
 	for (Film* film : spanListeFilms) {
 		span spanListeActeurs{film->acteurs.elements, film->acteurs.nElements};
@@ -109,7 +109,7 @@ Acteur* trouverActeur(ListeFilms& listeFilms, string acteurCible) {
 
 
 //TODO: Compléter les fonctions pour lire le fichier et créer/allouer une ListeFilms.  La ListeFilms devra être passée entre les fonctions, pour vérifier l'existence d'un Acteur avant de l'allouer à nouveau (cherché par nom en utilisant la fonction ci-dessus).
-Acteur* lireActeur(istream& fichier, ListeFilms& listeFilms)
+Acteur* lireActeur(istream& fichier, const ListeFilms& listeFilms)
 {
 	Acteur acteur = {};
 	acteur.nom            = lireString(fichier);
@@ -129,7 +129,7 @@ Acteur* lireActeur(istream& fichier, ListeFilms& listeFilms)
 	}
 }
 
-Film* lireFilm(istream& fichier, ListeFilms& listeFilms)
+Film* lireFilm(istream& fichier, const ListeFilms& listeFilms)
 {
 	Film film = {};
 	film.titre       = lireString(fichier);
@@ -155,18 +155,17 @@ ListeFilms creerListe(string nomFichier)
 {
 	ifstream fichier(nomFichier, ios::binary);
 	fichier.exceptions(ios::failbit);
-	
 	int nElements = lireUint16(fichier);
 
 	//TODO: Créer une liste de films vide.
 	ListeFilms listeFilms;
-	listeFilms.capacite = 2; listeFilms.nElements = 0;
-	listeFilms.elements = new Film*[2];
+	listeFilms.capacite = nElements; listeFilms.nElements = nElements;
+	listeFilms.elements = new Film*[listeFilms.capacite];
 	for (int i = 0; i < nElements; i++) {
-		lireFilm(fichier, listeFilms); //TODO: Ajouter le film à la liste.
+		Film* filmLu =  lireFilm(fichier, listeFilms); //TODO: Ajouter le film à la liste.
+		ajouterFilm(listeFilms, filmLu);
 	}
-	
-	return {}; //TODO: Retourner la liste de films.
+	return listeFilms; //TODO: Retourner la liste de films.
 }
 
 //TODO: Une fonction pour détruire un film (relâcher toute la mémoire associée à ce film, et les acteurs qui ne jouent plus dans aucun films de la collection).  Noter qu'il faut enleve le film détruit des films dans lesquels jouent les acteurs.  Pour fins de débogage, affichez les noms des acteurs lors de leur destruction.
