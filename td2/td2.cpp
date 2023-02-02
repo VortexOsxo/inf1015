@@ -94,7 +94,7 @@ void enleverFilm(ListeFilms& listeFilms, Film* const ptrFilm) {
 }
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
-Acteur* trouverActeur(ListeFilms& const listeFilms, string acteurCible) {
+Acteur* trouverActeur(const ListeFilms& listeFilms, string acteurCible) {
 	span spanListeFilms{listeFilms.elements, listeFilms.nElements};
 	for (Film* film : spanListeFilms) {
 		span spanListeActeurs{film->acteurs.elements, film->acteurs.nElements};
@@ -109,7 +109,7 @@ Acteur* trouverActeur(ListeFilms& const listeFilms, string acteurCible) {
 
 
 //TODO: Compléter les fonctions pour lire le fichier et créer/allouer une ListeFilms.  La ListeFilms devra être passée entre les fonctions, pour vérifier l'existence d'un Acteur avant de l'allouer à nouveau (cherché par nom en utilisant la fonction ci-dessus).
-Acteur* lireActeur(istream& fichier, ListeFilms& const listeFilms)
+Acteur* lireActeur(istream& fichier, const ListeFilms listeFilms)
 {
 	Acteur acteur = {};
 	acteur.nom            = lireString(fichier);
@@ -129,7 +129,7 @@ Acteur* lireActeur(istream& fichier, ListeFilms& const listeFilms)
 	}
 }
 
-Film* lireFilm(istream& fichier, ListeFilms& const listeFilms)
+Film* lireFilm(istream& fichier, const ListeFilms& listeFilms)
 {
 	Film film = {};
 	film.titre       = lireString(fichier);
@@ -194,7 +194,7 @@ void afficherListeFilms(const ListeFilms& listeFilms)
 void afficherFilmographieActeur(const ListeFilms& listeFilms, const string& nomActeur)
 {
 	//TODO: Utiliser votre fonction pour trouver l'acteur (au lieu de le mettre à nullptr).
-	const Acteur* acteur = nullptr;
+	const Acteur* acteur = trouverActeur(listeFilms, nomActeur);
 	if (acteur == nullptr)
 		cout << "Aucun acteur de ce nom" << endl;
 	else
