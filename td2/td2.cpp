@@ -174,20 +174,30 @@ ListeFilms creerListe(string nomFichier)
 
 void afficherActeur(const Acteur& acteur)
 {
-	cout << "  " << acteur.nom << ", " << acteur.anneeNaissance << " " << acteur.sexe << endl;
+	std::cout << "  " << acteur.nom << ", " << acteur.anneeNaissance << " " << acteur.sexe << endl;
 }
 
 //TODO: Une fonction pour afficher un film avec tous ces acteurs (en utilisant la fonction afficherActeur ci-dessus).
 
+void afficherFilm(const Film* film) {
+	std::cout << "Le film " << film->titre << " mets en scène les acteurs:" << std::endl;
+	for (int i = 0; i < film->acteurs.nElements; i++) {
+		afficherActeur(*(film->acteurs.elements[i]));
+	}
+}
+
 void afficherListeFilms(const ListeFilms& listeFilms)
 {
-	//TODO: Utiliser des caractères Unicode pour définir la ligne de séparation (différente des autres lignes de séparations dans ce progamme).
-	static const string ligneDeSeparation = {};
-	cout << ligneDeSeparation;
+	//TODO: Utiliser des caractères Unicode pour définir la ligne de séparation 
+	//(différente des autres lignes de séparations dans ce progamme).
+	static const string ligneDeSeparation = {10};
+	std::cout << ligneDeSeparation;
 	//TODO: Changer le for pour utiliser un span.
-	for (int i = 0; i < listeFilms.nElements; i++) {
+	span spanListeFilms{listeFilms.elements, listeFilms.nElements};
+	for (Film* film : spanListeFilms) {
 		//TODO: Afficher le film.
-		cout << ligneDeSeparation;
+		afficherFilm(film);
+		std::cout << ligneDeSeparation;
 	}
 }
 
@@ -196,7 +206,7 @@ void afficherFilmographieActeur(const ListeFilms& listeFilms, const string& nomA
 	//TODO: Utiliser votre fonction pour trouver l'acteur (au lieu de le mettre à nullptr).
 	const Acteur* acteur = trouverActeur(listeFilms, nomActeur);
 	if (acteur == nullptr)
-		cout << "Aucun acteur de ce nom" << endl;
+		std::cout << "Aucun acteur de ce nom" << endl;
 	else
 		afficherListeFilms(acteur->joueDans);
 }
@@ -216,15 +226,20 @@ int main()
 	
 	cout << ligneDeSeparation << "Le premier film de la liste est:" << endl;
 	//TODO: Afficher le premier film de la liste.  Devrait être Alien.
+	afficherFilm(listeFilms.elements[0]);
 	
 	cout << ligneDeSeparation << "Les films sont:" << endl;
 	//TODO: Afficher la liste des films.  Il devrait y en avoir 7.
-	
+	afficherListeFilms(listeFilms);
+
 	//TODO: Modifier l'année de naissance de Benedict Cumberbatch pour être 1976 (elle était 0 dans les données lues du fichier).  Vous ne pouvez pas supposer l'ordre des films et des acteurs dans les listes, il faut y aller par son nom.
-	
+	Acteur* ptrBenedict = trouverActeur( listeFilms,  "Benedict Cumberbatch" );
+	ptrBenedict->anneeNaissance = 1976;
+
 	cout << ligneDeSeparation << "Liste des films où Benedict Cumberbatch joue sont:" << endl;
 	//TODO: Afficher la liste des films où Benedict Cumberbatch joue.  Il devrait y avoir Le Hobbit et Le jeu de l'imitation.
-	
+	afficherFilmographieActeur(listeFilms, "Benedict Cumberbatch" );
+
 	//TODO: Détruire et enlever le premier film de la liste (Alien).  Ceci devrait "automatiquement" (par ce que font vos fonctions) détruire les acteurs Tom Skerritt et John Hurt, mais pas Sigourney Weaver puisqu'elle joue aussi dans Avatar.
 	
 	cout << ligneDeSeparation << "Les films sont maintenant:" << endl;
