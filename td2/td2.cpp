@@ -187,7 +187,7 @@ void détruireFilm(ListeFilms& listeFilms, Film* film) {
 
 void détruireListeFilms(ListeFilms& listeFilms) {
 	for (int i = 0; i < listeFilms.nElements; i++) {
-		détruireFilm(listeFilms.elements[i]);
+		détruireFilm(listeFilms, listeFilms.elements[i]);
 	}
 }
 
