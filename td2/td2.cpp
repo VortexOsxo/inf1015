@@ -185,8 +185,10 @@ void détruireFilm(ListeFilms& listeFilms, Film* film) {
 
 //TODO: Une fonction pour détruire une ListeFilms et tous les films qu'elle contient.
 
-void détruireListeFilms(ListeFilms& liste) {
-
+void détruireListeFilms(ListeFilms& listeFilms) {
+	for (int i = 0; i < listeFilms.nElements; i++) {
+		détruireFilm(listeFilms.elements[i]);
+	}
 }
 
 void afficherActeur(const Acteur& acteur)
