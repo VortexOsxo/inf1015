@@ -123,7 +123,6 @@ Film* lireFilm(istream& fichier, ListeFilms& listeFilms)
 {
 	Film film = {};
 	film.titre = lireString(fichier);
-	//cout << "\t-" << film.titre << endl;
 	film.realisateur = lireString(fichier);
 	film.anneeSortie = lireUint16(fichier);
 	film.recette = lireUint16(fichier);
@@ -156,7 +155,7 @@ ListeFilms creerListe(string nomFichier)
 	listeFilms.elements = new Film * [listeFilms.capacite];
 	for (int i = 0; i < nElements; i++) {
 		Film* filmLu = lireFilm(fichier, listeFilms); //TODO: Ajouter le film à la liste.
-		cout << "apres " << filmLu->titre << endl;
+		//cout << "apres " << filmLu->titre << endl;
 		//cout << filmLu->acteurs.elements[0]->joueDans.elements[0]->titre << endl;
 		ajouterFilm(listeFilms, filmLu);
 	}
